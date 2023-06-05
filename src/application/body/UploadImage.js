@@ -1,71 +1,44 @@
 
-import { UploadImageButton } from '../../styles/Bodystyles';
+import { useEffect, useState } from "react";
 
-const UploadImage = (setSelectedImage, selectedImage) => {
+function App() {
+  const [selectedImage, setSelectedImage] = useState();
+  const [imagePreview, setImagePreviews] = useState();
 
+  // rendering previews
+  useEffect(() => {
+    if (!selectedImage) return;
+    let arrayImage = [];
+    
+      arrayImage.push(URL.createObjectURL(selectedImage[0]));
+    
+    const Urlimage = arrayImage;
+    setImagePreviews(Urlimage);
+    console.log(Urlimage)
 
-    const handleChangeImage = e => {
-        setSelectedImage(e.target.files[0])
-    }
-
-    return (
-        <>
-        <UploadImageButton>Upload Image</UploadImageButton>
-        <input type='file' id='upload' accept='image/*' onChange={handleChangeImage}></input>
-        </>
-    );
-};
-
-export default UploadImage;
-
-
-
-
-// import { useEffect, useState } from 'react';
-
-// const UploadImage = (setSelectedImage, selectedImage) => {
-
-//     const [files, setFiles] = useState();
-//     const [previews, setPreviews] = useState();
+    // free memory
+    
   
-//     // rendering previews
-//     useEffect(() => {
-//       if (!files) return;
-//       let tmp = [];
-//       for (let i = 0; i < files.length; i++) {
-//         tmp.push(URL.createObjectURL(files[i]));
-//       }
-//       const objectUrls = tmp;
-//       setPreviews(objectUrls);
-  
-//       // free memory
-//       for (let i = 0; i < objectUrls.length; i++) {
-//         return () => {
-//           URL.revokeObjectURL(objectUrls[i]);
-//         };
-//       }
-//     }, [files]);
-  
-//     return (
-//       <main className="container">
-//         <br />
-//         <h3>Form with image preview</h3>
-//         <input
-//           type="file"
-//           accept="image/jpg, image/jpeg, image/png"
-//           multiple
-//           onChange={(e) => {
-//             if (e.target.files && e.target.files.length > 0) {
-//               setFiles(e.target.files);
-//             }
-//           }}
-//         />
-//         {previews &&
-//           previews.map((pic) => {
-//             return <img src={pic} alt="nothing" />;
-//           })}
-//       </main>
-//     );
-//   }
+  }, [selectedImage]);
 
-// export default UploadImage;
+  return (
+    <main className="container">
+      <br />
+      <h3>Form with image preview</h3>
+      <input
+        type="file"
+        accept="image/jpg, image/jpeg, image/png"
+        multiple
+        onChange={(e) => {
+            setSelectedImage(e.target.files);
+          
+        }}
+      />
+      
+           <img src={imagePreview}  alt=""/>
+    
+    </main>
+  );
+}
+
+export default App;

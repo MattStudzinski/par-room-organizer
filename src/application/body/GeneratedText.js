@@ -4,11 +4,7 @@ const GeneratedText = selectedImage => {
     
     return (
         <GeneratedTextBlock>
-            {selectedImage && (
-                <div className='textbox'>
-                    <img src={selectedImage} alt='thumb'/>
-                </div>
-            )}
+            
         </GeneratedTextBlock>
     );
 };

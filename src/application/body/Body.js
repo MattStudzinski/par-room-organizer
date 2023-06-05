@@ -5,6 +5,7 @@ import { BodyContainer } from '../../styles/Containers';
 const Body = () => {
 
     const [selectedImage, setSelectedImage] = useState(null)
+    
     return (
         <>
         <BodyContainer>
