@@ -1,16 +1,14 @@
 
+import { useCallback, useEffect, useState } from 'react';
+import { createWorker } from 'tesseract.js';
 import './App.css';
-import AppContainer from "./application/AppContainer";
+import UploadImage from './application/body/UploadImage';
 
 function App() {
   return (
-    <>
-    
-    < AppContainer />
-
-    
-    </>
+    <UploadImage />
   );
 }
 
 export default App;
+

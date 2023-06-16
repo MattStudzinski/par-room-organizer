@@ -1,60 +1,133 @@
 
-import Tesseract from 'tesseract.js';
-import { useEffect, useState } from "react";
+import { createWorker } from "tesseract.js";
+import { useEffect, useState, useCallback } from "react";
 import { UploadImageButton } from "../../styles/Bodystyles";
 
 function UploadImage() {
-  const [selectedImage, setSelectedImage] = useState();
-  const [imagePreview, setImagePreviews] = useState();
-  const {convertedText, setConvertedText} = useState("")
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [convertedText, setConvertedText] = useState("")
 
-const handleClick = () => {
-    Tesseract.recognize(imagePreview, "eng", {
-        logger: (m) => {
-            console.log(m)
-        },
-    }).then(({ data: {convertedText} }) => {
-        setConvertedText(convertedText)
-    })
-}
+const worker = createWorker()
+
+const convertImageToText = useCallback(async () => {
+    if(!selectedImage) return
+    await worker.load()
+    await worker.loadLanguage("eng")
+    await worker.initialize("eng")
+    const { data } = await worker.recognize(selectedImage)
+    setConvertedText(data.text)
+}, [worker, selectedImage])
 
   
-  // rendering previews
   useEffect(() => {
-    if (!selectedImage) return;
-    let arrayImage = [];
-    
-    arrayImage.push(URL.createObjectURL(selectedImage[0]));
-    
-    const Urlimage = arrayImage;
-    setImagePreviews(Urlimage);
+    convertImageToText()
+  }, [selectedImage, convertImageToText])
 
-    
-    
+  const handleChangeImage = e => {
+    if(e.target.files[0]){
+        setSelectedImage(e.target.files[0])
+    } else {
+        setSelectedImage(null)
+        setConvertedText("")
+    }
+  }
 
-    
-  }, [selectedImage]);
-
+  const splitTextToArray = convertedText.split(" ")
+  console.log(splitTextToArray)
+  
 
   return (
-    <main className="container">
-      <br />
-      <h3>Form with image preview</h3>
-      <UploadImageButton
-        type="file"
-        accept="image/jpg, image/jpeg, image/png"
-        multiple
-        onChange={(e) => {
-            setSelectedImage(e.target.files);
-          
-        }}
-      />
-      <input type="button" value='convert' onClick={handleClick}></input>
-      
-           <img src={imagePreview}  alt=""/>
-    
-    </main>
+    <div className="App">
+      <h1>ImText</h1>
+      <p>Gets words in image!</p>
+      <div className="input-wrapper">
+        <label htmlFor="upload">Upload Image</label>
+        <input type="file" id="upload" accept='image/*' onChange={handleChangeImage} />
+      </div>
+
+      <div className="result">
+        {selectedImage && (
+          <div className="box-image">
+            <img src={URL.createObjectURL(selectedImage)} alt="thumb" />
+          </div>
+        )}
+        {convertedText && (
+          <div className="box-p">
+            <p>{convertedText}</p>
+            
+          </div>
+        )}
+      </div>
+    </div>
   );
 }
 
+
 export default UploadImage;
+
+
+
+
+
+
+    //   const [selectedImage, setSelectedImage] = useState(null);
+    //   const [textResult, setTextResult] = useState("");
+    
+      
+    //   const worker = createWorker();
+    
+    //   const convertImageToText = useCallback(async () => {
+    //     if(!selectedImage) return;
+    //     await worker.load();
+    //     await worker.loadLanguage("eng");
+    //     await worker.initialize("eng");
+    //     const { data } = await worker.recognize(selectedImage);
+    //     setTextResult(data.text);
+    //   }, [worker, selectedImage]);
+    
+    //   useEffect(() => {
+    //     convertImageToText();
+    //   }, [selectedImage, convertImageToText])
+    
+    //   const handleChangeImage = e => {
+    //     if(e.target.files[0]) {
+    //       setSelectedImage(e.target.files[0]);
+    //     } else {
+    //       setSelectedImage(null);
+    //       setTextResult("")
+    //     }
+    //   }
+    
+    //   const convertedArray = textResult.split(" ")
+    //   console.log(convertedArray)
+    
+    
+    //   return (
+    //     <div className="App">
+    //       <h1>ImText</h1>
+    //       <p>Gets words in image!</p>
+    //       <div className="input-wrapper">
+    //         <label htmlFor="upload">Upload Image</label>
+    //         <input type="file" id="upload" accept='image/*' onChange={handleChangeImage} />
+    //       </div>
+    
+    //       <div className="result">
+    //         {selectedImage && (
+    //           <div className="box-image">
+    //             <img src={URL.createObjectURL(selectedImage)} alt="thumb" />
+    //           </div>
+    //         )}
+    //         {textResult && (
+    //           <div className="box-p">
+    //             <p>{textResult}</p>
+                
+    //           </div>
+    //         )}
+    //       </div>
+    //     </div>
+    //   );
+    // }
+    
+    // export default App;
+    
+    
