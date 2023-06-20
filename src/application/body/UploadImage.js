@@ -33,11 +33,25 @@ const convertImageToText = useCallback(async () => {
   }
 
   const splitTextToArray = convertedText.split("001")
-  console.log(splitTextToArray)
 
-  const stringArray = splitTextToArray.toString(" ")
-  console.log(stringArray)
+
+  const newArr = splitTextToArray
+
+  const slicedArray = newArr.slice(1)
+  console.log(slicedArray)
+
+
+//   console.log(slicedArray)
+
   
+
+
+
+ 
+
+
+
+
 
   return (
     <div className="App">
@@ -51,13 +65,12 @@ const convertImageToText = useCallback(async () => {
       <div className="result">
         {selectedImage && (
           <div className="box-image">
-            <img src={URL.createObjectURL(selectedImage)} alt="thumb" />
+            
           </div>
         )}
         {convertedText && (
           <div className="box-p">
-            <p>{convertedText}</p>
-            
+            <>{slicedArray}</>
           </div>
         )}
       </div>
