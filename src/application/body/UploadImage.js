@@ -1,7 +1,7 @@
 
 import { createWorker } from "tesseract.js";
 import { useEffect, useState, useCallback } from "react";
-import { UploadImageButton } from "../../styles/Bodystyles";
+import { ParRoomResultsList, UploadImageButton, ResultsItem } from "../../styles/Bodystyles";
 
 function UploadImage() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -40,8 +40,11 @@ const convertImageToText = useCallback(async () => {
   const slicedArray = newArr.slice(1)
   console.log(slicedArray)
 
+  
+    const parItems = slicedArray.map((parItem, index) =>
+    <ResultsItem key={index}>{parItem}</ResultsItem>
+    )
 
-//   console.log(slicedArray)
 
   
 
@@ -70,7 +73,8 @@ const convertImageToText = useCallback(async () => {
         )}
         {convertedText && (
           <div className="box-p">
-            <>{slicedArray}</>
+
+            <ParRoomResultsList>{parItems}</ParRoomResultsList>
           </div>
         )}
       </div>

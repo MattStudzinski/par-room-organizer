@@ -1,8 +1,15 @@
 import styled from 'styled-components';
 
-export const GeneratedTextBlock = styled.img `
-color: green;
+export const ParRoomResultsList = styled.ul `
 font-size: 12px;
+
+
+`
+
+export const ResultsItem = styled.li `
+color: firebrick;
+margin: 10px;
+
 `
 export const UploadImageButton = styled.input`
 background-color: azure;
