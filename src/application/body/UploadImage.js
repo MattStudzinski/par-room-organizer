@@ -31,27 +31,54 @@ const convertImageToText = useCallback(async () => {
         setConvertedText("")
     }
   }
-
-  const splitTextToArray = convertedText.split("001")
-
-
-  const newArr = splitTextToArray
-
-  const slicedArray = newArr.slice(1)
-  console.log(slicedArray)
+  console.log(convertedText)
 
   
-    const parItems = slicedArray.map((parItem, index) =>
-    <ResultsItem key={index}>{parItem}</ResultsItem>
-    )
-
-
+  const splitTextToArray = convertedText.split(' ').reverse().join(' ').split('001')
+  console.log(splitTextToArray)
   
 
 
+    // const parItems = slicedArray.map((parItem, index) =>
+    // <ResultsItem key={index}>{parItem}</ResultsItem>
+    // )
 
+//   const newArray = ['apple']
+//   console.log(newArray)
+
+//   for (let i = 0; i < splitTextToArray.length; i++){
+//     if (splitTextToArray[i].substring(splitTextToArray[i].length,-5) <= .8) {
+//         newArray.push(splitTextToArray[i])
+//         console.log(newArray)
+//     }
+//   }
+
+  
+
+
+
+//  const splitData = mockdata.split(' ').reverse().join(' ').split('001')
+//  console.log(splitData)
+
+
+// const emptyArr = []
+
+//  for (let i = 0; i < splitData.length; i++) {
+// if (splitData[i].substring(0,5) <= .8) {
+// emptyArr.push(splitData[i])
+// console.log(emptyArr)
+// }
+//  }
+
+
+//  const newarrayformock = []
+//  for (let i = 0; i < splitData.length; i++){
+//     if(splitData){
+//         newarrayformock.push(splitData[i].split(' ').reverse().join(' '))
+//     }
+//     console.log(newarrayformock)
+//  }
  
-
 
 
 
@@ -74,7 +101,8 @@ const convertImageToText = useCallback(async () => {
         {convertedText && (
           <div className="box-p">
 
-            <ParRoomResultsList>{parItems}</ParRoomResultsList>
+            {/* <ParRoomResultsList>{parItems}</ParRoomResultsList>
+            <div>{newArray}</div> */}
           </div>
         )}
       </div>
