@@ -40,39 +40,38 @@ const convertImageToText = useCallback(async () => {
     return paritem.trim()
   })
   console.log(trimmedFinalArray)
-  
-const safeGreenArray = ['apple']
+
+
+const safeGreenArray = []
+const warningOrangeArray = []
+const dangerRedArray = []
+
 console.log(safeGreenArray)
 
   for (let i = 0; i < trimmedFinalArray.length; i++){
-    if (trimmedFinalArray[i].substring(trimmedFinalArray[i],4) >= .8) {
-        safeGreenArray.push(trimmedFinalArray[i])
-        console.log(safeGreenArray)
-    }
+    if (trimmedFinalArray[i].substring(trimmedFinalArray[i],4) <= .25) {
+        dangerRedArray.push(trimmedFinalArray[i])
+    } else if (trimmedFinalArray[i].substring(trimmedFinalArray[i],4) >= .26 && trimmedFinalArray[i].substring(trimmedFinalArray[i],4) <= .40 ) {
+      warningOrangeArray.push(trimmedFinalArray[i])
+    } else {safeGreenArray.push(trimmedFinalArray[i])
   }
+}
+  console.log(`green array ${safeGreenArray}`)
+  console.log(`orange array ${warningOrangeArray}`)
+  console.log(`red array ${dangerRedArray}`)
 
 
-    // const parItems = slicedArray.map((parItem, index) =>
+    // const redParItems = dangerRedArray.map((parItem, index) =>
     // <ResultsItem key={index}>{parItem}</ResultsItem>
     // )
 
-//  
+    // const orangeParItems = warningOrangeArray.map((parItem, index) =>
+    // <ResultsItem key={index}>{parItem}</ResultsItem>
+    // )
 
-  
-
-
-
-//  const splitData = mockdata.split(' ').reverse().join(' ').split('001')
-//  console.log(splitData)
-
-
-
-
-
-
- 
-
-
+    // const greenParItems = safeGreenArray.map((parItem, index) =>
+    // <ResultsItem key={index}>{parItem}</ResultsItem>
+    // )
 
 
 
