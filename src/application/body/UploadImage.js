@@ -31,27 +31,32 @@ const convertImageToText = useCallback(async () => {
         setConvertedText("")
     }
   }
-  console.log(convertedText)
+  const removeLineBreaks = convertedText.replace(/(\r\n|\n|\r\s+)/g, " ").trim()
+  const splitAndReverseArray = removeLineBreaks.split(' ').reverse()
+  const joinedFinalArray = splitAndReverseArray.join(' ').split('001')
+  
 
+  const trimmedFinalArray = joinedFinalArray.map(paritem => {
+    return paritem.trim()
+  })
+  console.log(trimmedFinalArray)
   
-  const splitTextToArray = convertedText.split(' ').reverse().join(' ').split('001')
-  console.log(splitTextToArray)
-  
+const safeGreenArray = ['apple']
+console.log(safeGreenArray)
+
+  for (let i = 0; i < trimmedFinalArray.length; i++){
+    if (trimmedFinalArray[i].substring(trimmedFinalArray[i],4) >= .8) {
+        safeGreenArray.push(trimmedFinalArray[i])
+        console.log(safeGreenArray)
+    }
+  }
 
 
     // const parItems = slicedArray.map((parItem, index) =>
     // <ResultsItem key={index}>{parItem}</ResultsItem>
     // )
 
-//   const newArray = ['apple']
-//   console.log(newArray)
-
-//   for (let i = 0; i < splitTextToArray.length; i++){
-//     if (splitTextToArray[i].substring(splitTextToArray[i].length,-5) <= .8) {
-//         newArray.push(splitTextToArray[i])
-//         console.log(newArray)
-//     }
-//   }
+//  
 
   
 
@@ -61,24 +66,13 @@ const convertImageToText = useCallback(async () => {
 //  console.log(splitData)
 
 
-// const emptyArr = []
-
-//  for (let i = 0; i < splitData.length; i++) {
-// if (splitData[i].substring(0,5) <= .8) {
-// emptyArr.push(splitData[i])
-// console.log(emptyArr)
-// }
-//  }
 
 
-//  const newarrayformock = []
-//  for (let i = 0; i < splitData.length; i++){
-//     if(splitData){
-//         newarrayformock.push(splitData[i].split(' ').reverse().join(' '))
-//     }
-//     console.log(newarrayformock)
-//  }
+
+
  
+
+
 
 
 
@@ -113,3 +107,7 @@ const convertImageToText = useCallback(async () => {
 
 export default UploadImage;
     
+
+
+
+
