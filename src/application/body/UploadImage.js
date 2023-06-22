@@ -1,7 +1,7 @@
 
 import { createWorker } from "tesseract.js";
 import { useEffect, useState, useCallback } from "react";
-import { ParRoomResultsList, UploadImageButton, ResultsItem } from "../../styles/Bodystyles";
+import { GreenParRoomResultsList, OrangeParRoomResultsList, RedParRoomResultsList , UploadImageButton, GreenResultsItem, OrangeResultsItem, RedResultsItem } from "../../styles/Bodystyles";
 
 function UploadImage() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -34,19 +34,22 @@ const convertImageToText = useCallback(async () => {
   const removeLineBreaks = convertedText.replace(/(\r\n|\n|\r\s+)/g, " ").trim()
   const splitAndReverseArray = removeLineBreaks.split(' ').reverse()
   const joinedFinalArray = splitAndReverseArray.join(' ').split('001')
+  const poplast = joinedFinalArray.pop()
   
 
   const trimmedFinalArray = joinedFinalArray.map(paritem => {
     return paritem.trim()
   })
-  console.log(trimmedFinalArray)
+  
 
 
 const safeGreenArray = []
 const warningOrangeArray = []
 const dangerRedArray = []
 
-console.log(safeGreenArray)
+
+
+
 
   for (let i = 0; i < trimmedFinalArray.length; i++){
     if (trimmedFinalArray[i].substring(trimmedFinalArray[i],4) <= .25) {
@@ -56,25 +59,33 @@ console.log(safeGreenArray)
     } else {safeGreenArray.push(trimmedFinalArray[i])
   }
 }
-  console.log(`green array ${safeGreenArray}`)
-  console.log(`orange array ${warningOrangeArray}`)
-  console.log(`red array ${dangerRedArray}`)
+  // console.log(`green array ${safeGreenArray}`)
+  // console.log(`orange array ${warningOrangeArray}`)
+  // console.log(`red array ${dangerRedArray}`)
+  const displayGreen = []
+  for (let i = 0; i < safeGreenArray.length; i++) {
+    if (safeGreenArray[i].length > 1){
+      let howdy = safeGreenArray[i].split(' ').reverse().join(' ')
+      displayGreen.push(howdy)
+      console.log(displayGreen)
+    }
+  }
+  
+
+    const redParItems = dangerRedArray.map((parItem, index) =>
+    <RedResultsItem key={index}>{parItem}</RedResultsItem>
+    )
+
+    const orangeParItems = warningOrangeArray.map((parItem, index) =>
+    <OrangeResultsItem key={index}>{parItem}</OrangeResultsItem>
+    )
+
+    const greenParItems = displayGreen.map((parItem, index) =>
+    <GreenResultsItem key={index}>{parItem}</GreenResultsItem>
+    )
 
 
-    // const redParItems = dangerRedArray.map((parItem, index) =>
-    // <ResultsItem key={index}>{parItem}</ResultsItem>
-    // )
-
-    // const orangeParItems = warningOrangeArray.map((parItem, index) =>
-    // <ResultsItem key={index}>{parItem}</ResultsItem>
-    // )
-
-    // const greenParItems = safeGreenArray.map((parItem, index) =>
-    // <ResultsItem key={index}>{parItem}</ResultsItem>
-    // )
-
-
-
+    
 
   return (
     <div className="App">
@@ -94,8 +105,10 @@ console.log(safeGreenArray)
         {convertedText && (
           <div className="box-p">
 
-            {/* <ParRoomResultsList>{parItems}</ParRoomResultsList>
-            <div>{newArray}</div> */}
+            <RedParRoomResultsList>{redParItems}</RedParRoomResultsList>
+            <OrangeParRoomResultsList>{orangeParItems}</OrangeParRoomResultsList>
+            <GreenParRoomResultsList>{greenParItems}</GreenParRoomResultsList>
+            
           </div>
         )}
       </div>
