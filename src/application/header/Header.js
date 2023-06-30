@@ -10,8 +10,7 @@ const Header = () => {
         <Instructions>
         here are some instructions ijcnxedoicnxeicneior jher bhurewbweuinxer uhernduher 
         ijcnxedoicnxeicneior jher bhurewbweuinxer uhernduherijcnxedoicnxeicneior jher bhurewbweuinxer 
-        uhernduherijcnxedoicnxeicneior jher bhurewbweuinxer uhernduherijcnxedoicnxeicneior jher bhurewbweuinxer 
-        uhernduher
+    
         </Instructions>
         </HeaderContainer>
     );
