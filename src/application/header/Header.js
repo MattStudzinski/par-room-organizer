@@ -1,17 +1,18 @@
 import React from 'react';
-import { Title, Instructions } from '../../styles/Headerstyles';
+import { TitleContainer, Title, Company, Instructions } from '../../styles/Headerstyles';
 import { HeaderContainer } from '../../styles/Containers';
 const Header = () => {
     return (
         <HeaderContainer>
+        <TitleContainer>
         <Title>
             Par Room Organizer
         </Title>
-        <Instructions>
-        here are some instructions ijcnxedoicnxeicneior jher bhurewbweuinxer uhernduher 
-        ijcnxedoicnxeicneior jher bhurewbweuinxer uhernduherijcnxedoicnxeicneior jher bhurewbweuinxer 
-    
-        </Instructions>
+        <Company>
+            The Everett Clinic
+        </Company>
+        </TitleContainer>
+        
         </HeaderContainer>
     );
 };

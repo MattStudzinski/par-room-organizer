@@ -1,8 +1,11 @@
 
 import { createWorker } from "tesseract.js";
 import Header from "../header/Header";
+import cloud from '../../assets/cloud.svg'
+import { InputLabel,CloudSVG, SelectFile, FileInput } from "../../styles/Inputstyles";
 import { useEffect, useState, useCallback } from "react";
-import { GreenParRoomResultsList, OrangeParRoomResultsList, RedParRoomResultsList , UploadImageButton, GreenResultsItem, OrangeResultsItem, RedResultsItem } from "../../styles/Bodystyles";
+import { GreenParRoomResultsList, OrangeParRoomResultsList, RedParRoomResultsList, GreenResultsItem, OrangeResultsItem, RedResultsItem, GreenTitle, OrangeTitle, RedTitle } from "../../styles/Bodystyles";
+import { InputContainer, UlContainer } from "../../styles/Containers";
 
 function UploadImage() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -33,13 +36,15 @@ const convertImageToText = useCallback(async () => {
     }
   }
   const removeLineBreaks = convertedText.replace(/(\r\n|\n|\r\s+)/g, " ").trim()
+  console.log(removeLineBreaks)
   const splitAndReverseArray = removeLineBreaks.split(' ').reverse()
   const joinedFinalArray = splitAndReverseArray.join(' ').split('001')
-  const poplast = joinedFinalArray.pop()
+  
   
 
   const trimmedFinalArray = joinedFinalArray.map(paritem => {
     return paritem.trim()
+    
   })
   
 
@@ -60,9 +65,6 @@ const dangerRedArray = []
     } else {safeGreenArray.push(trimmedFinalArray[i])
   }
 }
-  // console.log(`green array ${safeGreenArray}`)
-  // console.log(`orange array ${warningOrangeArray}`)
-  // console.log(`red array ${dangerRedArray}`)
   const displayGreen = []
   for (let i = 0; i < safeGreenArray.length; i++) {
     if (safeGreenArray[i].length > 1){
@@ -110,27 +112,28 @@ const dangerRedArray = []
   return (
     <div className="App">
       <Header />
-      <div className="input-wrapper">
-        <label htmlFor="upload">Upload Image</label>
-        <input type="file" id="upload" accept='image/*' onChange={handleChangeImage} />
-      </div>
+      <InputContainer>
+        <InputLabel htmlFor="upload">
+        <CloudSVG src={cloud} alt="cloud"/>
+        <SelectFile>Select File</SelectFile>
+        </InputLabel>
+        <FileInput type="file" id="upload" accept='image/*' onChange={handleChangeImage} />
+      </InputContainer>
 
-      <div className="result">
-        {selectedImage && (
-          <div className="box-image">
-            
-          </div>
-        )}
         {convertedText && (
-          <div className="box-p">
+          <UlContainer>
 
+
+          <RedTitle>Red</RedTitle>
             <RedParRoomResultsList>{redParItems}</RedParRoomResultsList>
+          <OrangeTitle>Orange</OrangeTitle>
             <OrangeParRoomResultsList>{orangeParItems}</OrangeParRoomResultsList>
+          <GreenTitle>Green</GreenTitle>
             <GreenParRoomResultsList>{greenParItems}</GreenParRoomResultsList>
             
-          </div>
+          </UlContainer>
         )}
-      </div>
+      
     </div>
   );
 }
