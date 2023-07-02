@@ -1,4 +1,26 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const rotate = keyframes`
+to {
+    transform: rotate(360deg);
+}
+`
+export const AnimationContainer = styled.div`
+width: 100vw;
+height:100vh;
+display: flex;
+justify-content: center;
+`
+
+export const LoadingAnimation = styled.div`
+animation: ${rotate} 1.3s ease infinite;
+margin-top: 20%;
+height: 80px;
+width: 80px;
+border: 6px solid;
+border-color: grey transparent grey transparent;
+border-radius: 50%;
+`
 
 export const GreenParRoomResultsList = styled.ul `
 width: 65%;

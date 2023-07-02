@@ -4,22 +4,25 @@ import Header from "../header/Header";
 import cloud from '../../assets/cloud.svg'
 import { InputLabel,CloudSVG, SelectFile, FileInput } from "../../styles/Inputstyles";
 import { useEffect, useState, useCallback } from "react";
-import { GreenParRoomResultsList, OrangeParRoomResultsList, RedParRoomResultsList, GreenResultsItem, OrangeResultsItem, RedResultsItem, GreenTitle, OrangeTitle, RedTitle } from "../../styles/Bodystyles";
+import { AnimationContainer, LoadingAnimation, GreenParRoomResultsList, OrangeParRoomResultsList, RedParRoomResultsList, GreenResultsItem, OrangeResultsItem, RedResultsItem, GreenTitle, OrangeTitle, RedTitle } from "../../styles/Bodystyles";
 import { InputContainer, UlContainer } from "../../styles/Containers";
 
 function UploadImage() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [convertedText, setConvertedText] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
 
 const worker = createWorker()
 
 const convertImageToText = useCallback(async () => {
     if(!selectedImage) return
+    
     await worker.load()
     await worker.loadLanguage("eng")
     await worker.initialize("eng")
     const { data } = await worker.recognize(selectedImage)
     setConvertedText(data.text)
+    setIsLoading(false)
 }, [worker, selectedImage])
 
   
@@ -29,6 +32,7 @@ const convertImageToText = useCallback(async () => {
 
   const handleChangeImage = e => {
     if(e.target.files[0]){
+      setIsLoading(true)
         setSelectedImage(e.target.files[0])
     } else {
         setSelectedImage(null)
@@ -38,12 +42,13 @@ const convertImageToText = useCallback(async () => {
   const removeLineBreaks = convertedText.replace(/(\r\n|\n|\r\s+)/g, " ").trim()
   console.log(removeLineBreaks)
   const splitAndReverseArray = removeLineBreaks.split(' ').reverse()
-  const joinedFinalArray = splitAndReverseArray.join(' ').split('001')
+  const joinedFinalArray = splitAndReverseArray.join(' ').split(' 001 ')
   
   
 
   const trimmedFinalArray = joinedFinalArray.map(paritem => {
     return paritem.trim()
+    
     
   })
   
@@ -112,15 +117,15 @@ const dangerRedArray = []
   return (
     <div className="App">
       <Header />
-      <InputContainer>
+      {!isLoading &&<InputContainer>
         <InputLabel htmlFor="upload">
         <CloudSVG src={cloud} alt="cloud"/>
         <SelectFile>Select File</SelectFile>
         </InputLabel>
         <FileInput type="file" id="upload" accept='image/*' onChange={handleChangeImage} />
-      </InputContainer>
+      </InputContainer>}
 
-        {convertedText && (
+        {convertedText && !isLoading &&(
           <UlContainer>
 
 
@@ -133,7 +138,12 @@ const dangerRedArray = []
             
           </UlContainer>
         )}
-      
+        {isLoading && (
+          <AnimationContainer>
+          <LoadingAnimation></LoadingAnimation>
+          </AnimationContainer>
+        )}
+
     </div>
   );
 }
