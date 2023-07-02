@@ -4,8 +4,9 @@ import Header from "../header/Header";
 import cloud from '../../assets/cloud.svg'
 import { InputLabel,CloudSVG, SelectFile, FileInput } from "../../styles/Inputstyles";
 import { useEffect, useState, useCallback } from "react";
-import { AnimationContainer, LoadingAnimation, GreenParRoomResultsList, OrangeParRoomResultsList, RedParRoomResultsList, GreenResultsItem, OrangeResultsItem, RedResultsItem, GreenTitle, OrangeTitle, RedTitle } from "../../styles/Bodystyles";
-import { InputContainer, UlContainer } from "../../styles/Containers";
+import { LoadingAnimation, GreenParRoomResultsList, OrangeParRoomResultsList, RedParRoomResultsList, GreenResultsItem, OrangeResultsItem, RedResultsItem, GreenTitle, OrangeTitle, RedTitle } from "../../styles/Bodystyles";
+import { InputContainer, UlContainer, ListTitleContainer, AnimationContainer } from "../../styles/Containers";
+
 
 function UploadImage() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -40,7 +41,6 @@ const convertImageToText = useCallback(async () => {
     }
   }
   const removeLineBreaks = convertedText.replace(/(\r\n|\n|\r\s+)/g, " ").trim()
-  console.log(removeLineBreaks)
   const splitAndReverseArray = removeLineBreaks.split(' ').reverse()
   const joinedFinalArray = splitAndReverseArray.join(' ').split(' 001 ')
   
@@ -128,12 +128,11 @@ const dangerRedArray = []
         {convertedText && !isLoading &&(
           <UlContainer>
 
-
-          <RedTitle>Red</RedTitle>
+          <ListTitleContainer><RedTitle>Items in this list should be pulled from Par Room:</RedTitle></ListTitleContainer>
             <RedParRoomResultsList>{redParItems}</RedParRoomResultsList>
-          <OrangeTitle>Orange</OrangeTitle>
+          <ListTitleContainer><OrangeTitle>Items in this list are at risk and are not used often:</OrangeTitle></ListTitleContainer>
             <OrangeParRoomResultsList>{orangeParItems}</OrangeParRoomResultsList>
-          <GreenTitle>Green</GreenTitle>
+          <ListTitleContainer><GreenTitle>Items in this list are used often enough to stay:</GreenTitle></ListTitleContainer>
             <GreenParRoomResultsList>{greenParItems}</GreenParRoomResultsList>
             
           </UlContainer>

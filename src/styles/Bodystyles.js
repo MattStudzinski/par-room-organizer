@@ -5,12 +5,7 @@ to {
     transform: rotate(360deg);
 }
 `
-export const AnimationContainer = styled.div`
-width: 100vw;
-height:100vh;
-display: flex;
-justify-content: center;
-`
+
 
 export const LoadingAnimation = styled.div`
 animation: ${rotate} 1.3s ease infinite;
@@ -24,6 +19,7 @@ border-radius: 50%;
 
 export const GreenParRoomResultsList = styled.ul `
 width: 65%;
+margin-bottom: 90px;
 max-width: 75%;
 padding-left: 0px;
 display: flex;
@@ -90,12 +86,22 @@ color: green;
 
 export const GreenTitle = styled.div`
 margin-top: 60px;
+margin-left: 18%;
+margin-right: 18%;
+font-size: 17px;
+
 `
 
 export const OrangeTitle = styled.div`
 margin-top: 60px;
+margin-left: 18%;
+margin-right: 18%;
+font-size: 17px;
 `
 
 export const RedTitle = styled.div`
 margin-top: 150px;
+margin-left: 18%;
+margin-right: 18%;
+font-size: 17px;
 `
