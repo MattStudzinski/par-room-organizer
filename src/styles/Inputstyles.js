@@ -17,6 +17,7 @@ box-shadow: 2px 2px 8px rgba(0, 0, 0, .8);
 
 export const SelectFile = styled.span `
 padding-left: 2px;
+font-size: large;
 `
 
 export const CloudSVG = styled.img`

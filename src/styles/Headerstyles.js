@@ -12,7 +12,7 @@ background: linear-gradient(to right, #3f4c6b, #606c88); /* W3C, IE 10+/ Edge, F
 `
 
 export const Title = styled.p`
-font-size: 20px;
+font-size: 22px;
 color: white;
 `
 
@@ -21,12 +21,8 @@ color: white;
 margin-left: auto;
 margin-top: 0;
 padding-right: 20px;
-font-size: 14px;
+font-size: 15px;
 `
 
-export const Instructions = styled.p`
-font-size: 11;
-color: brown;
-margin-top: 10%;
-`
+
 
