@@ -78,12 +78,6 @@ padding: 10px;
 border-radius: 20px;
 `
 
-export const UploadImageButton = styled.input`
-background-color: azure;
-color: green;
-
-`
-
 export const GreenTitle = styled.div`
 margin-top: 60px;
 margin-left: 18%;

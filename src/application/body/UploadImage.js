@@ -41,13 +41,16 @@ const convertImageToText = useCallback(async () => {
     }
   }
   const removeLineBreaks = convertedText.replace(/(\r\n|\n|\r\s+)/g, " ").trim()
+  
   const splitAndReverseArray = removeLineBreaks.split(' ').reverse()
+  
   const joinedFinalArray = splitAndReverseArray.join(' ').split(' 001 ')
   
   
 
   const trimmedFinalArray = joinedFinalArray.map(paritem => {
     return paritem.trim()
+    
     
     
   })
@@ -59,13 +62,18 @@ const warningOrangeArray = []
 const dangerRedArray = []
 
 
-
+// const tester = ['14.00 EA P-3 PROLINE 6-0 SUTURE NS$586 EM-P4',
+// '14.00 EA P-3 PROLINE 6-0 SUTURE NS$586 EM-P4','14.00 EA P-3 PROLINE 6-0 SUTURE NS$586 EM-P4','14.00 EA P-3 PROLINE 6-0 SUTURE NS$586 EM-P4','14.00 EA P-3 PROLINE 6-0 SUTURE NS$586 EM-P4'
+// ]
+// const emptytest = []
 
 
   for (let i = 0; i < trimmedFinalArray.length; i++){
-    if (trimmedFinalArray[i].substring(trimmedFinalArray[i],4) <= .25) {
+    if (trimmedFinalArray[i].substring(trimmedFinalArray[i],4) <= .19) {
+
         dangerRedArray.push(trimmedFinalArray[i])
-    } else if (trimmedFinalArray[i].substring(trimmedFinalArray[i],4) >= .26 && trimmedFinalArray[i].substring(trimmedFinalArray[i],4) <= .40 ) {
+    } else if (trimmedFinalArray[i].substring(trimmedFinalArray[i],4) >= .20 ) {
+      
       warningOrangeArray.push(trimmedFinalArray[i])
     } else {safeGreenArray.push(trimmedFinalArray[i])
   }
@@ -95,7 +103,7 @@ const dangerRedArray = []
       console.log(displayRed)
     }
   }
-
+  
  
   
 
